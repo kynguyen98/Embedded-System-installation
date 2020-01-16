@@ -44,12 +44,22 @@ rm -r sw4stm32
 echo "SW4STM32 installed"
 sleep 1
 echo "Installing Daily stuff..."
-sudo pacman -S qbittorrent wireshark-qt --noconfirm
+sudo pacman -S qbittorrent wireshark-qt virtualbox mutt neomutt --noconfirm
+
+# Generating neomutt config file
+mkdir ~/.config/mutt
+git clone https://github.com/kynguyen98/Simple-Mutt-config.git
+cd Simple-Mutt-config
+sudo cp color.muttrc mailcap muttrc ~/.config/mutt
+
 echo "Daily stuff installed"
 sleep 1
 echo "Installing Octave..."
 sudo pacman -S octave --noconfirm
 echo "Octave installed"
 sleep 1
+echo "Removing all bloatware"
+sudo pacman -Rs hplip thunderbird yakuake skanlite --noconfirm
+
 echo "All completed"
  
