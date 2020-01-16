@@ -1,6 +1,6 @@
 #! /bin/sh
 # Begin code
-
+start=$SECONDS
 # Update Manjaro
 sudo pacman -Syu --noconfirm
 
@@ -51,7 +51,16 @@ mkdir ~/.config/mutt
 git clone https://github.com/kynguyen98/Simple-Mutt-config.git
 cd Simple-Mutt-config
 sudo cp color.muttrc mailcap muttrc ~/.config/mutt
-
+cd ..
+rm -r Simple-Mutt-config
+# Daily stuff installing
+sudo pacman -Rs firefox --noconfirm
+git clone https://aur.archlinux.org/google-chrome.git
+cd google-chrome
+makepgk -si
+cd ..
+rm -rf google-chrome
+sudo pacman -S gimp --noconfirm
 echo "Daily stuff installed"
 sleep 1
 echo "Installing Octave..."
@@ -61,5 +70,5 @@ sleep 1
 echo "Removing all bloatware"
 sudo pacman -Rs hplip thunderbird yakuake skanlite --noconfirm
 
-echo "All completed"
+echo "All completed it took $((SECONDS - start)) seconds to complete"
  
