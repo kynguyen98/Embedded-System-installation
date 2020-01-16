@@ -23,7 +23,7 @@ echo "STM32CubeMX installed"
 sleep 1
 echo "Installing Arduino..."
 sudo pacman -S arduino --noconfirm
-sudo usermod -aG uucp, lock john
+sudo usermod -aG uucp,lock john
 sudo modprobe cdc_acm
 echo "Arduino installed"
 sleep 1
