@@ -38,7 +38,7 @@ sleep 1
 echo "Installing SW4STM32..."
 git clone https://aur.archlinux.org/sw4stm32.git
 cd sw4stm32
-makepgk -si
+makepkg -si
 cd ..
 rm -r sw4stm32
 echo "SW4STM32 installed"
