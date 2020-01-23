@@ -20,7 +20,6 @@ sudo pacman -S openocd gdb arm-none-eabi-gcc arm-none-eabi-gdb python-pyserial a
 
 # Clonning stuff from git 
 git clone https://aur.archlinux.org/stm32cubemx.git
-git clone https://aur.archlinux.org/sw4stm32.git
 git clone https://aur.archlinux.org/ncurses5-compat-libs.git
 git clone https://github.com/kynguyen98/Simple-Mutt-config.git
 git clone https://aur.archlinux.org/google-chrome.git
@@ -30,13 +29,11 @@ cd stm32cubemx
 makepkg -si --noconfirm
 cd ..
 
-cd sw4stm32
-makepkg -si --noconfirm
-cd ..
 
 cd ncurses5-compat-libs
 makepkg -si --noconfirm
 cd..
+
 
 cd Simple-Mutt-config
 make
