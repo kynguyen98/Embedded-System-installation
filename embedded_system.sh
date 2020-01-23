@@ -38,8 +38,6 @@ cd ncurses5-compat-libs
 makepkg -si --noconfirm
 cd..
 
-mkdir ~/.config/mutt
-
 cd Simple-Mutt-config
 make
 cd ..
