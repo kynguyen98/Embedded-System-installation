@@ -41,7 +41,7 @@ cd..
 mkdir ~/.config/mutt
 
 cd Simple-Mutt-config
-sudo cp color.muttrc mailcap muttrc ~/.config/mutt
+make
 cd ..
 
 cd google-chrome
