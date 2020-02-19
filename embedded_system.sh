@@ -13,7 +13,7 @@ sudo pacman -Rs hplip thunderbird yakuake skanlite firefox konversation --noconf
 sudo pacman -Syu --noconfirm
 
 # Install dependencies
-sudo pacman -S java-environment-common jre8-openjdk jre8-openjdk-headless jdk8-openjdk c-ares electron6 ripgrep jre11-openjdk code linux54-virtualbox-host-modules linux54-headers --noconfirm
+sudo pacman -S java-environment-common jre8-openjdk jre8-openjdk-headless jdk8-openjdk c-ares electron6 ripgrep jre11-openjdk code linux-virtualbox-host-modules linux-headers --noconfirm
 
 # Toolchain
 sudo pacman -S openocd gdb arm-none-eabi-gcc arm-none-eabi-gdb python-pyserial arm-none-eabi-newlib --noconfirm
@@ -23,6 +23,7 @@ git clone https://aur.archlinux.org/stm32cubemx.git
 git clone https://aur.archlinux.org/ncurses5-compat-libs.git
 git clone https://github.com/kynguyen98/Simple-Mutt-config.git
 git clone https://aur.archlinux.org/google-chrome.git
+git clone https://github.com/ussserrr/stm32pio
 
 # Start installing 
 cd stm32cubemx
@@ -45,7 +46,7 @@ cd ..
 
 # Some software that I like to use
 sudo pacman -S vim octave arduino gimp stlink code qbittorrent wireshark-qt virtualbox mutt neomutt --noconfirm
-
+sudo pip install stm32pio
 # Remove some left over folder 
 sudo rm -r -f stm32cubemx
 sudo rm -r -f sw4stm32
