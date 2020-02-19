@@ -32,6 +32,7 @@ cd ..
 
 cd stm32pio
 sudo pip install .
+cd ..
 
 cd ncurses5-compat-libs
 makepkg -si --noconfirm
@@ -48,10 +49,8 @@ cd ..
 
 # Some software that I like to use
 sudo pacman -S vim octave arduino gimp stlink code qbittorrent wireshark-qt virtualbox mutt neomutt --noconfirm
-sudo pip install stm32pio
 # Remove some left over folder 
 sudo rm -r -f stm32cubemx
-sudo rm -r -f sw4stm32
 sudo rm -r -f Simple-Mutt-config
 sudo rm -r -f google-chrome
 sudo pacman -Sc --noconfirm
