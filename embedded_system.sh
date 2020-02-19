@@ -57,3 +57,4 @@ sudo rm -r -f google-chrome
 sudo pacman -Sc --noconfirm
 echo "All completed it took $((SECONDS - start)) seconds to complete"
  
+##############################################################################################################################
