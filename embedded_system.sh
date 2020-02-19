@@ -23,13 +23,15 @@ git clone https://aur.archlinux.org/stm32cubemx.git
 git clone https://aur.archlinux.org/ncurses5-compat-libs.git
 git clone https://github.com/kynguyen98/Simple-Mutt-config.git
 git clone https://aur.archlinux.org/google-chrome.git
-git clone https://github.com/ussserrr/stm32pio
+git clone https://github.com/kynguyen98/stm32pio.git
 
 # Start installing 
 cd stm32cubemx
 makepkg -si --noconfirm
 cd ..
 
+cd stm32pio
+sudo pip install .
 
 cd ncurses5-compat-libs
 makepkg -si --noconfirm
