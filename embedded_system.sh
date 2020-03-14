@@ -34,6 +34,9 @@ cd stm32pio
 sudo pip install .
 cd ..
 
+# Installing platformio core 
+pip install -U platformio
+
 cd ncurses5-compat-libs
 makepkg -si --noconfirm
 cd..
