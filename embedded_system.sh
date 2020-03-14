@@ -11,6 +11,7 @@ sudo usermod -aG uucp,lock john
 # Update Manjaro
 sudo pacman -Rs hplip thunderbird yakuake skanlite firefox konversation --noconfirm
 sudo pacman -Syu --noconfirm
+sudo pip install --upgrade pip
 
 # Install dependencies
 sudo pacman -S java-environment-common jre8-openjdk jre8-openjdk-headless jdk8-openjdk c-ares electron6 ripgrep jre11-openjdk code linux-virtualbox-host-modules linux-headers --noconfirm
