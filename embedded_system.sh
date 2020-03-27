@@ -2,80 +2,125 @@
 # Begin code
 start=$SECONDS
 
-# Add some pre-define alias
+git_repo=(
+'https://aur.archlinux.org/stm32cubemx.git'             # STM32CubeMX
+'https://aur.archlinux.org/ncurses5-compat-libs.git'    # ncurses5-compat-libs
+'https://aur.archlinux.org/google-chrome.git'           # Google-Chrome
+'https://aur.archlinux.org/stm32pio.git'                # STM32pio
+)               
 
-touch .bash_aliases
-echo -e "alias install="sudo pacman -S"\nalias update="sudo pacman -Syu"\nalias remove="sudo pacman -Rs"\nalias search="pacman -Ss"\nalias st="st-flash"">>.bash_aliases
-echo -e "function_update_ps1() {\n    PS1=$(powerline-shell $?)\n}\n">>.bashrc
-echo -e "if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then\n    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"\nfi\n">.bashrc
-echo -e "if [ -f ~/.bash_aliases ]; then\n. ~/.bash_aliases\nfi\n">>.bashrc
+need_package=(
+'java-environment-common' 
+'jre8-openjdk'
+'jre8-openjdk-headless' 
+'jdk8-openjdk' 
+'c-ares' 
+'electron6' 
+'ripgrep' 
+'jre11-openjdk' 
+'code' 
+'linux-virtualbox-host'
+)
+tool_chain=(
+'openocd' 
+'gdb' 
+'arm-none-eabi-gcc'
+'arm-none-eabi-gdb' 
+'python-pyserial' 
+'arm-none-eabi-newlib'
+)
 
-# Loading kernel module
+software_list=(
+'vim' 'octave' 'arduino' 'gimp' 'stlink' 'code' 'qbittorrent' 'wireshark-qt' 'virtualbox'
+'mutt' 'neomutt' 'cheese' 'timeshift' 'etcher' 'gparted' 'grub-customizer' 'clementine'
+)
 
-sudo modprobe cdc_acm vboxdrv
+remove_list=(
+'hplip' 'thunderbird' 'yakuake' 'skanlite' 'firefox' 'konversation' 
+)
 
-# Adding user to group
+pip_list=(
+'pwerline-shell' 'platformio'
+)
 
-sudo usermod -aG uucp,lock john
+installing_deps(){
+    for package in ${need_package[@]}
+    do
+        install --needed $package --noconfirm
+    done
+}
 
-# Update Manjaro with pre-define aliases 
+installing_toolchain(){
+    for list in ${tool_chain[@]}
+    do
+        install --needed $list --noconfirm
+    done    
+}
 
-remove -Rs hplip thunderbird yakuake skanlite firefox konversation --noconfirm
+installing_software(){
+    for id in ${software_list[@]}
+    do
+        install --needed $id --noconfirm
+    done
+}
+
+removing_software(){
+    for item in ${remove_list[@]}
+    do
+        install --needed $item --noconfirm
+    done    
+}
+
+installing_pip_package(){
+    for pip in ${pip_list[@]}
+    do
+        sudo pip install -U 
+    done  
+}
+
+aur_clone(){
+    for repo in ${git_repo[@]}
+    do
+    git clone $repo
+    # New way of using shell parameter expansion
+    name=$(echo "${repo##*/}" | cut -f1 -d".") # Basically echo the repo url. With 2 ##
+                                               # it skip  until it reach / 2 times then pipe it to cut command 
+                                               #using -d to choose the dot as field seperator and -f1 to choose field 1
+                                               # " * " mean to  
+    cd $name 
+    makepkg -si
+    cd ..
+    sudo rm -r $name
+    done
+}
+
+bash_command(){
+    echo -e 'alias install="sudo pacman -S"\nalias update="sudo pacman -Syu"\nalias remove="sudo pacman -Rs"\nalias search="pacman -Ss"\nalias st="st-flash"'>>.bash_aliases
+    echo -e 'function_update_ps1() {\n    PS1=$(powerline-shell $?)\n}\n'>>.bashrc
+    echo -e 'if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then\n    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND" \nfi\n'>>.bashrc
+    echo -e 'if [ -f ~/.bash_aliases ]; then\n. ~/.bash_aliases\nfi\n'>>.bashrc
+}
+
+# Start doing shit
+bash_command                                    # Add some pre-define alias and edit bashrc
+sudo modprobe cdc_acm vboxdrv                   # Loading kernel module
+sudo usermod -aG uucp,lock john                 # Adding user to group
+
+# Update Manjaro 
+
+removing_software
 update -Syu --noconfirm
 sudo pip install --upgrade pip
+#############################################################################################################################################################################
 
-# Install dependencies
+installing_deps                                 # Install dependencies
+installing_toolchain                            # Toolchain
+aur_clone                                       # Clonning stuff from git and start installing
+installing_pip_package                          # Installing pip packages
+installing_software                             # Some software that I like to use
 
-install java-environment-common jre8-openjdk jre8-openjdk-headless jdk8-openjdk c-ares electron6 ripgrep jre11-openjdk code linux-virtualbox-host-modules linux-headers --noconfirm
+# Remove some left over cache
 
-# Toolchain
-
-install openocd gdb arm-none-eabi-gcc arm-none-eabi-gdb python-pyserial arm-none-eabi-newlib --noconfirm
-
-# Clonning stuff from git 
-
-git clone https://aur.archlinux.org/stm32cubemx.git
-git clone https://aur.archlinux.org/ncurses5-compat-libs.git
-git clone https://github.com/kynguyen98/Simple-Mutt-config.git
-git clone https://aur.archlinux.org/google-chrome.git
-git clone https://github.com/kynguyen98/stm32pio.git
-
-# Start installing 
-
-cd stm32cubemx
-makepkg -si --noconfirm
-cd ..
-
-cd stm32pio
-sudo pip install .
-cd ..
-
-# Installing pip packages
-
-sudo pip install -U platformio
-sudo pip install pwerline-shell
-cd ncurses5-compat-libs
-makepkg -si --noconfirm
-cd..
-
-
-cd Simple-Mutt-config
-make
-cd ..
-
-cd google-chrome
-makepkg -si --noconfirm
-cd ..
-
-# Some software that I like to use
-
-sudo pacman -S vim octave arduino gimp stlink code qbittorrent wireshark-qt virtualbox mutt neomutt --noconfirm
-
-# Remove some left over folder 
-
-sudo rm -r -f stm32cubemx
-sudo rm -r -f Simple-Mutt-config
-sudo rm -r -f google-chrome
 sudo pacman -Sc --noconfirm
 echo "All completed it took $((SECONDS - start)) seconds to complete"
  
