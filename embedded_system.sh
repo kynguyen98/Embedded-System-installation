@@ -3,22 +3,23 @@ start=$SECONDS
 
 git_repo=(
 'https://aur.archlinux.org/stm32cubemx.git'             # STM32CubeMX
-'https://aur.archlinux.org/ncurses5-compat-libs.git' # ncurses5-compat-libs
+'https://aur.archlinux.org/ncurses5-compat-libs.git' 	# ncurses5-compat-libs
 'https://aur.archlinux.org/google-chrome.git'           # Google-Chrome
 'https://aur.archlinux.org/stm32pio.git'                # STM32pio
 )               
 
 need_package=(
-'java-environment-common' 
-'jre8-openjdk'
-'jre8-openjdk-headless' 
-'jdk8-openjdk' 
-'c-ares' 
-'electron6' 
+'java-environment-common'				# Java 8 runtime 
+'jre8-openjdk'						# Java 8 rutime
+'jre8-openjdk-headless'					# Java 8 rutime 
+'jdk8-openjdk'						# Java 8 rutime 
+'c-ares' 						
+'electron6' 						# electron for app
 'ripgrep' 
-'jre11-openjdk' 
-'code' 
-'linux-virtualbox-host'
+'jre11-openjdk' 					# Java 11 runtime
+'code' 							# Visual Studio Code					
+'linux-virtualbox-host'					# Virtualbox
+'i7z'							# Cpu monitoring
 )
 tool_chain=(
 'openocd' 
@@ -35,7 +36,7 @@ software_list=(
 )
 
 remove_list=(
-'hplip' 'thunderbird' 'yakuake' 'skanlite' 'firefox' 'konversation' 
+'hplip' 'thunderbird' 'yakuake' 'skanlite' 'firefox' 'konversation' 'nano'
 )
 
 pip_list=(
