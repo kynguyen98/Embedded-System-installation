@@ -1,3 +1,32 @@
+ ________  _________ _________________ ___________   _______   _______ _____ ________  ___  _____ _   _  _____ _____ ___   _      _      ___________ 
+|  ___|  \/  || ___ \  ___|  _  \  _  \  ___|  _  \ /  ___\ \ / /  ___|_   _|  ___|  \/  | |_   _| \ | |/  ___|_   _/ _ \ | |    | |    |  ___| ___ \
+| |__ | .  . || |_/ / |__ | | | | | | | |__ | | | | \ `--. \ V /\ `--.  | | | |__ | .  . |   | | |  \| |\ `--.  | |/ /_\ \| |    | |    | |__ | |_/ /
+|  __|| |\/| || ___ \  __|| | | | | | |  __|| | | |  `--. \ \ /  `--. \ | | |  __|| |\/| |   | | | . ` | `--. \ | ||  _  || |    | |    |  __||    / 
+| |___| |  | || |_/ / |___| |/ /| |/ /| |___| |/ /  /\__/ / | | /\__/ / | | | |___| |  | |  _| |_| |\  |/\__/ / | || | | || |____| |____| |___| |\ \ 
+\____/\_|  |_/\____/\____/|___/ |___/ \____/|___/   \____/  \_/ \____/  \_/ \____/\_|  |_/  \___/\_| \_/\____/  \_/\_| |_/\_____/\_____/\____/\_| \_|
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+                                                                                                                                                     
+ _             _   __        _   _                                                                                                                   
+| |           | | / /       | \ | |                                                                                                                  
+| |__  _   _  | |/ / _   _  |  \| | __ _ _   _ _   _  ___ _ __                                                                                       
+| '_ \| | | | |    \| | | | | . ` |/ _` | | | | | | |/ _ \ '_ \                                                                                      
+| |_) | |_| | | |\  \ |_| | | |\  | (_| | |_| | |_| |  __/ | | |                                                                                     
+|_.__/ \__, | \_| \_/\__, | \_| \_/\__, |\__,_|\__, |\___|_| |_|                                                                                     
+        __/ |         __/ |         __/ |       __/ |                                                                                                
+       |___/         |___/         |___/       |___/                                                                                                 
+
+
+
+
+
 #! /bin/sh
 # Begin code
 start=$SECONDS
@@ -7,6 +36,10 @@ git_repo=(
 'https://aur.archlinux.org/ncurses5-compat-libs.git'    # ncurses5-compat-libs
 'https://aur.archlinux.org/google-chrome.git'           # Google-Chrome
 'https://aur.archlinux.org/stm32pio.git'                # STM32pio
+'http://aur.archlinux.org/packages/cpupower-gui'	    # cpu power control	
+'http://aur.archlinux.org/packages/cattle'	            # toolkit for brainfuck programing language
+'http://aur.archlinux.org/packages/mdk4'                # exploit common IEEE 802.11 protocol weaknesses
+			
 )               
 
 need_package=(
@@ -14,12 +47,11 @@ need_package=(
 'jre8-openjdk'
 'jre8-openjdk-headless' 
 'jdk8-openjdk' 
-'c-ares' 
-'electron6' 
+'c-ares'  
 'ripgrep' 
-'jre11-openjdk' 
-'code' 
+'jre11-openjdk'  
 'linux-virtualbox-host'
+'nvim'
 )
 tool_chain=(
 'openocd' 
@@ -31,7 +63,7 @@ tool_chain=(
 )
 
 software_list=(
-'vim' 'octave' 'arduino' 'gimp' 'stlink' 'code' 'qbittorrent' 'wireshark-qt' 'virtualbox'
+'vim' 'octave' 'code' 'unrar' 'arduino' 'gimp' 'stlink' 'code' 'qbittorrent' 'wireshark-qt' 'virtualbox'
 'mutt' 'neomutt' 'cheese' 'timeshift' 'etcher' 'gparted' 'grub-customizer' 'clementine'
 )
 
@@ -99,12 +131,20 @@ bash_command(){
     echo -e 'function_update_ps1() {\n    PS1=$(powerline-shell $?)\n}\n'>>.bashrc
     echo -e 'if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then\n    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND" \nfi\n'>>.bashrc
     echo -e 'if [ -f ~/.bash_aliases ]; then\n. ~/.bash_aliases\nfi\n'>>.bashrc
+    echo -e "call plug#begin('~/local/share/nvim/plugged')\nPlug 'neoclide/coc.nvim', {'branch': 'release'}\ncall plug#end()"\
+	    >>~/.config/nvim/init.vim
+
 }
 
-# Start doing shit
+initializing_setup(){
+su
+curl -sL install-node.now.sh/lts | bash --noconfirm
 bash_command                                    # Add some pre-define alias and edit bashrc
 sudo modprobe cdc_acm vboxdrv                   # Loading kernel module
 sudo usermod -aG uucp,lock john                 # Adding user to group
+}
+
+initializing_setup 				# Start doing shit
 
 # Update Manjaro 
 
@@ -122,6 +162,5 @@ installing_software                             # Some software that I like to u
 # Remove some left over cache
 
 sudo pacman -Sc --noconfirm
-echo "All completed it took $((SECONDS - start)) seconds to complete"
- 
+echo "All completed it took $((SECONDS - start)) seconds to complete" 
 #####################################################################################################################################################################################################
